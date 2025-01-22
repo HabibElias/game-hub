@@ -3,13 +3,14 @@ import Genre from "@/models/genre";
 import getCroppedImages from "@/services/getCroppedImages";
 import { HStack, List, Text, Image, Badge, Button } from "@chakra-ui/react";
 import GenreSkeleton from "../GenreSkeleton";
+import GameQuery from "@/models/game_query";
 
 interface Props {
-  selectedGenreIndex: number | undefined;
-  onSelectedGenre: (genre: Genre) => void;
+  gameQuery: GameQuery;
+  onSelectedGenre: (genre: GameQuery) => void;
 }
 
-const GenreList = ({ selectedGenreIndex, onSelectedGenre }: Props) => {
+const GenreList = ({ gameQuery, onSelectedGenre }: Props) => {
   // the data is a genre type
   const { data, error, isLoading } = useData<Genre>("/genres");
   const skeleton = [
@@ -22,35 +23,35 @@ const GenreList = ({ selectedGenreIndex, onSelectedGenre }: Props) => {
 
       {!isLoading && (
         <List.Root listStyle={"none"} gap={5}>
-          {data.map((genre) => {
+          {data.map((g) => {
             return (
-              <List.Item key={genre.id} cursor={"pointer"}>
+              <List.Item key={g.id} cursor={"pointer"}>
                 <Button
                   variant={"surface"}
                   colorPalette={
-                    selectedGenreIndex == genre.id ? "purple" : "black"
+                    gameQuery.genre?.id == g.id ? "purple" : "black"
                   }
                   _hover={{ textDecoration: "underline" }}
                   textDecoration={
-                    selectedGenreIndex == genre.id ? "underline" : "none"
+                    gameQuery.genre?.id == g.id ? "underline" : "none"
                   }
-                  onClick={() => onSelectedGenre(genre)}
+                  onClick={() => onSelectedGenre({ ...gameQuery, genre: g })}
                 >
                   <HStack>
                     <Image
                       boxSize={"32px"}
                       borderRadius={4}
-                      src={getCroppedImages(genre.image_background, 600, 400)}
+                      src={getCroppedImages(g.image_background, 600, 400)}
                     />
                     <Text fontFamily="Poppins" fontSize={"sm"}>
-                      {genre.name}
+                      {g.name}
                     </Text>
                     <Badge
                       fontFamily={"Poppins"}
                       fontSize={10}
                       colorPalette={"black"}
                     >
-                      {genre.games_count}
+                      {g.games_count}
                     </Badge>
                   </HStack>
                 </Button>

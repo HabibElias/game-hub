@@ -5,6 +5,7 @@ import {
   FaApple,
   FaLinux,
   FaAndroid,
+  FaGamepad,
 } from "react-icons/fa";
 import { MdPhoneIphone } from "react-icons/md";
 import { SiNintendo } from "react-icons/si";
@@ -32,7 +33,15 @@ const PlatformIcons = ({ platforms }: Prop) => {
     android: FaAndroid,
     ios: MdPhoneIphone,
     web: BsGlobe,
+    "3do": FaGamepad,
+    atari: FaGamepad,
+    "commodore-amiga": FaGamepad,
+    "neo-geo": FaGamepad,
+    sega: FaGamepad,
+
   };
+
+  if (!platforms) return null;
 
   return (
     <HStack marginY={1}>
