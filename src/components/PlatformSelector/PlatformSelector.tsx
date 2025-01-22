@@ -30,6 +30,17 @@ const PlatformSelector = ({ gameQuery, onSelectedPlatform }: Props) => {
           </Button>
         </MenuTrigger>
         <MenuContent position={"absolute"} marginTop={3}>
+          <MenuItem
+            key={0}
+            value={""}
+            fontFamily={"Poppins"}
+            cursor={"pointer"}
+            textDecoration={gameQuery.platform == null ? "underline" : "none"}
+            onClick={() => onSelectedPlatform({ ...gameQuery, platform: null })}
+          >
+            All
+            <MenuItemCommand>0</MenuItemCommand>
+          </MenuItem>
           {data.map((platform) => (
             <MenuItem
               key={platform.id}

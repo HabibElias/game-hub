@@ -3,6 +3,7 @@ import PlatformIcons from "../PlatformIcons/PlatformIcons";
 import { Card, HStack, Image } from "@chakra-ui/react";
 import CriticScore from "../CriticScore";
 import getCroppedImages from "@/services/getCroppedImages";
+import placeholder from "../../../assets/Image Placeholder/no-image-placeholder-6f3882e0.webp";
 
 interface prop {
   game: Game;
@@ -12,7 +13,11 @@ const GameCard = ({ game }: prop) => {
   return (
     <Card.Root>
       <Image
-        src={getCroppedImages(game.background_image, 600, 400)}
+        src={
+          game.background_image
+            ? getCroppedImages(game.background_image, 600, 400)
+            : placeholder
+        }
         width={"100%"}
         borderTopLeftRadius={10}
         borderTopRightRadius={10}

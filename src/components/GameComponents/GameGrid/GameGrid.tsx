@@ -14,7 +14,11 @@ const GameGrid = ({ gameQuery }: Props) => {
   const { data, error, isLoading } = useData<Game>(
     "/games",
     {
-      params: { genres: gameQuery.genre?.id, platforms: gameQuery.genre?.id },
+      params: {
+        genres: gameQuery.genre?.id,
+        platforms: gameQuery.platform?.id,
+        ordering: gameQuery.ordering?.value,
+      },
     },
     [gameQuery]
   );
