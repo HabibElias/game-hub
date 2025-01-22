@@ -33,7 +33,7 @@ const PlatformSelector = ({ gameQuery, onSelectedSort }: Props) => {
   ];
 
   return (
-    <Box margin={"28px"} position={"relative"} zIndex={1}>
+    <Box position={"relative"} zIndex={1}>
       <MenuRoot positioning={{ placement: "right" }}>
         <MenuTrigger asChild colorPalette={"purple"}>
           <Button variant="outline" size="xl" fontFamily={"Poppins"}>
