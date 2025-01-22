@@ -12,18 +12,20 @@ const GameCard = ({ game }: prop) => {
   return (
     <Card.Root>
       <Image
-        src={getCroppedImages(game.background_image)}
+        src={getCroppedImages(game.background_image, 600, 400)}
         width={"100%"}
         borderTopLeftRadius={10}
         borderTopRightRadius={10}
       />
       <Card.Body>
-        <Card.Title fontWeight={"bold"}>{game.name}</Card.Title>
+        <Card.Title fontFamily="Poppins" fontWeight={"bold"}>
+          {game.name}
+        </Card.Title>
         <HStack justifyContent={"space-between"}>
           <PlatformIcons
             platforms={game.parent_platforms.map((p) => p.platform)}
           />
-          <CriticScore score={game.metacritic} />
+          <CriticScore score={game.metacritic} fontSize={16} />
         </HStack>
       </Card.Body>
     </Card.Root>
