@@ -1,7 +1,5 @@
-import useData from "@/hooks/useData";
 import usePlatform from "@/hooks/usePlatform";
 import GameQuery from "@/models/game_query";
-import Platform from "@/models/platform";
 import { Box, Button } from "@chakra-ui/react";
 import {
   MenuContent,
