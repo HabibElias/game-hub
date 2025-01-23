@@ -4,6 +4,7 @@ import { Card, HStack, Image } from "@chakra-ui/react";
 import CriticScore from "../CriticScore";
 import getCroppedImages from "@/services/getCroppedImages";
 import placeholder from "../../../assets/Image Placeholder/no-image-placeholder-6f3882e0.webp";
+import Emoji from "../Emoji";
 
 interface prop {
   game: Game;
@@ -23,15 +24,16 @@ const GameCard = ({ game }: prop) => {
         borderTopRightRadius={10}
       />
       <Card.Body>
-        <Card.Title fontFamily="Poppins" fontWeight={"bold"}>
-          {game.name}
-        </Card.Title>
         <HStack justifyContent={"space-between"}>
           <PlatformIcons
             platforms={game.parent_platforms.map((p) => p.platform)}
           />
           <CriticScore score={game.metacritic} fontSize={16} />
         </HStack>
+        <Card.Title fontFamily="Poppins" fontWeight={"bold"} marginBottom={2}>
+          {game.name}
+        </Card.Title>
+        <Emoji rating={game.rating_top} />
       </Card.Body>
     </Card.Root>
   );
