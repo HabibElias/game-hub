@@ -1,4 +1,5 @@
 import useData from "@/hooks/useData";
+import usePlatform from "@/hooks/usePlatform";
 import GameQuery from "@/models/game_query";
 import Platform from "@/models/platform";
 import { Box, Button } from "@chakra-ui/react";
@@ -16,9 +17,7 @@ interface Props {
 }
 
 const PlatformSelector = ({ gameQuery, onSelectedPlatform }: Props) => {
-  const { data, error, isLoading } = useData<Platform>(
-    "/platforms/lists/parents"
-  );
+  const { data, error, isLoading } = usePlatform();
 
   if (error || isLoading) return null;
   return (
@@ -29,7 +28,7 @@ const PlatformSelector = ({ gameQuery, onSelectedPlatform }: Props) => {
             {gameQuery.platform?.name || "Platform"}
           </Button>
         </MenuTrigger>
-        <MenuContent position={"absolute"} marginTop={3}>
+        <MenuContent position={"absolute"} width={"max-content"} marginTop={3}>
           <MenuItem
             key={0}
             value={""}

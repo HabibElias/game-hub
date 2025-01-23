@@ -40,7 +40,20 @@ const PlatformSelector = ({ gameQuery, onSelectedSort }: Props) => {
             Order by: {gameQuery.ordering?.label || ""}
           </Button>
         </MenuTrigger>
-        <MenuContent position={"absolute"} fontFamily={"Poppins"} marginTop={3}>
+        <MenuContent
+          position={"absolute"}
+          width={"max-content"}
+          fontFamily={"Poppins"}
+          marginTop={3}
+        >
+          <MenuItem
+            key={0}
+            onClick={() => onSelectedSort({ ...gameQuery, ordering: null })}
+            cursor={"pointer"}
+            value={""}
+          >
+            None <MenuItemCommand>0</MenuItemCommand>
+          </MenuItem>
           {menus.map((menu) => (
             <MenuItem
               key={menu.id}

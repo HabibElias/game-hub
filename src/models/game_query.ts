@@ -6,4 +6,5 @@ export default interface GameQuery {
   genre: Genre | null;
   platform: Platform | null;
   ordering: SortMenu | null;
+  searchText: string | null;
 }
