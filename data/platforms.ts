@@ -18,7 +18,7 @@ const platforms = [
     ],
   },
   {
-    id: 187,
+    id: 2,
     name: "PlayStation",
     slug: "playstation",
     platforms: [

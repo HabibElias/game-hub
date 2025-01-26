@@ -19,7 +19,7 @@ const GenreList = ({ gameQuery, onSelectedGenre }: Props) => {
 
   return (
     <>
-      {error && <Text>{error}</Text>}
+      {error && <Text>{error.message}</Text>}
 
       {!isLoading && (
         <List.Root listStyle={"none"} gap={5}>
@@ -34,7 +34,7 @@ const GenreList = ({ gameQuery, onSelectedGenre }: Props) => {
               All
             </Button>
           </List.Item>
-          {data.map((g) => {
+          {data?.results.map((g) => {
             return (
               <List.Item key={g.id} cursor={"pointer"}>
                 <Button

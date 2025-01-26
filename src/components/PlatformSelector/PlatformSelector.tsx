@@ -38,7 +38,7 @@ const PlatformSelector = ({ gameQuery, onSelectedPlatform }: Props) => {
             All
             <MenuItemCommand>0</MenuItemCommand>
           </MenuItem>
-          {data.map((platform) => (
+          {data?.results.map((platform) => (
             <MenuItem
               key={platform.id}
               value={platform.slug}
