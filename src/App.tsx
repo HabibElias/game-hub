@@ -7,6 +7,7 @@ import PlatformSelector from "./components/PlatformSelector";
 import GameQuery from "./models/game_query";
 import SortSelector from "./components/SortSelector";
 import GameHeading from "./components/GameHeading";
+import "./index.css";
 
 function App() {
   const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
