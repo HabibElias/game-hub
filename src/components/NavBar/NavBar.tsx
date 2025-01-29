@@ -2,7 +2,6 @@ import { HStack, Image } from "@chakra-ui/react";
 import logo from "../../assets/Logo/logo.webp";
 import { ColorModeButton } from "../ui/color-mode";
 import SearchInput from "../SearchInput";
-import GameQuery from "@/models/game_query";
 
 const NavBar = () => {
   return (

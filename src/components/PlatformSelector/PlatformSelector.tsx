@@ -9,10 +9,6 @@ import {
   MenuTrigger,
 } from "@chakra-ui/react/menu";
 
-interface Props {
-  selectedPlatformId?: number;
-  onSelectedPlatform: (platformId?: number) => void;
-}
 
 const PlatformSelector = () => {
   const { data, error, isLoading } = usePlatform();
