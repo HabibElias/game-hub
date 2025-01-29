@@ -1,3 +1,4 @@
+import useGameQuery from "@/hooks/useGameQuery";
 import SortMenu from "@/models/sort_menu";
 import { Box, Button } from "@chakra-ui/react";
 import {
@@ -8,12 +9,7 @@ import {
   MenuTrigger,
 } from "@chakra-ui/react/menu";
 
-interface Props {
-  selectedOrderName?: string;
-  onSelectedSort: (sortSelectionId?: string) => void;
-}
-
-const PlatformSelector = ({ selectedOrderName, onSelectedSort }: Props) => {
+const PlatformSelector = () => {
   const menus: SortMenu[] = [
     { id: 1, value: "name", label: "Name" },
     { id: 2, value: "released", label: "Released" },
@@ -31,6 +27,9 @@ const PlatformSelector = ({ selectedOrderName, onSelectedSort }: Props) => {
     { id: 14, value: "-metacritic", label: "R-Metacritic" },
   ];
 
+  const onSelectedSort = useGameQuery((s) => s.selectOrder);
+  
+  const selectedOrderName = useGameQuery((s) => s.ordering);
   const selectedMenu = menus.find((m) => m.value === selectedOrderName);
 
   return (

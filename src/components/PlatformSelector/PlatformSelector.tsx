@@ -1,3 +1,4 @@
+import useGameQuery from "@/hooks/useGameQuery";
 import usePlatform from "@/hooks/usePlatform";
 import { Box, Button } from "@chakra-ui/react";
 import {
@@ -13,11 +14,10 @@ interface Props {
   onSelectedPlatform: (platformId?: number) => void;
 }
 
-const PlatformSelector = ({
-  selectedPlatformId,
-  onSelectedPlatform,
-}: Props) => {
+const PlatformSelector = () => {
   const { data, error, isLoading } = usePlatform();
+  const onSelectedPlatform = useGameQuery((s) => s.selectPlatform);
+  const selectedPlatformId = useGameQuery((s) => s.platformId);
 
   const platformName = data.results?.find(
     (p) => p.id == selectedPlatformId

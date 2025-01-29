@@ -2,16 +2,16 @@ import useGenre from "@/hooks/useGenre";
 import getCroppedImages from "@/services/getCroppedImages";
 import { Badge, Button, HStack, Image, List, Text } from "@chakra-ui/react";
 import GenreSkeleton from "../GenreSkeleton";
+import useGameQuery from "@/hooks/useGameQuery";
 
-interface Props {
-  selectedGenreId?: number;
-  onSelectedGenre: (genreId?: number) => void;
-}
-
-const GenreList = ({ selectedGenreId, onSelectedGenre }: Props) => {
+const GenreList = () => {
   // the data is a genre type
   const { data, error, isLoading } = useGenre();
+
+  const onSelectedGenre = useGameQuery((s) => s.selectGenre);
   
+  const selectedGenreId = useGameQuery((s) => s.genreId);
+
   const skeleton = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
   ];
@@ -38,9 +38,7 @@ const GenreList = ({ selectedGenreId, onSelectedGenre }: Props) => {
               <List.Item key={g.id} cursor={"pointer"}>
                 <Button
                   variant={"surface"}
-                  colorPalette={
-                    selectedGenreId == g.id ? "purple" : "black"
-                  }
+                  colorPalette={selectedGenreId == g.id ? "purple" : "black"}
                   _hover={{ textDecoration: "underline" }}
                   textDecoration={
                     selectedGenreId == g.id ? "underline" : "none"

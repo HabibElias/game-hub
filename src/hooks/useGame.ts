@@ -5,8 +5,8 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 const apiClient = new ApiClient<Game>("/games");
 
-const useGame = (gameQuery: GameQuery) =>
-  useInfiniteQuery<FetchResponse<Game>, Error>({
+const useGame = (gameQuery: GameQuery) => {
+  return useInfiniteQuery<FetchResponse<Game>, Error>({
     queryKey: ["games", gameQuery],
     queryFn: ({ pageParam = 1 }) =>
       apiClient.getAll({
@@ -21,4 +21,5 @@ const useGame = (gameQuery: GameQuery) =>
       return lastpage.next ? allpages.length + 1 : undefined;
     },
   });
+};
 export default useGame;

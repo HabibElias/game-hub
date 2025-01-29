@@ -2,22 +2,16 @@ import { Input } from "@chakra-ui/react";
 import { InputGroup } from "../ui/input-group";
 import { LuSearch } from "react-icons/lu";
 import { useRef } from "react";
-import GameQuery from "@/models/game_query";
+import useGameQuery from "@/hooks/useGameQuery";
 
-interface Props {
-    gameQuery: GameQuery;
-    onSearch: (searchText: GameQuery)=> void;
-}
-
-const SearchInput = ({gameQuery, onSearch}:Props) => {
+const SearchInput = () => {
   const ref = useRef<HTMLInputElement>(null);
-
-
+  const search  = useGameQuery(s => s.search);
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        onSearch({...gameQuery, searchText: ref.current?.value || ""})
+        search(ref.current?.value as string);
       }}
       style={{ width: "100%", display: "flex", justifyContent: "center" }}
     >
