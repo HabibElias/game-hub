@@ -40,7 +40,10 @@ function App() {
         <Heading size={"2xl"} fontFamily={"Poppins"} marginBottom={5}>
           Genre
         </Heading>
-        <GenreList gameQuery={gameQuery} onSelectedGenre={setGameQuery} />
+        <GenreList
+          selectedGenreId={gameQuery.genreId}
+          onSelectedGenre={(g) => setGameQuery({ ...gameQuery, genreId: g })}
+        />
       </GridItem>
 
       <GridItem area="main">
@@ -48,10 +51,17 @@ function App() {
           <GameHeading gameDetails={gameQuery}></GameHeading>
           <HStack gap={5} marginBottom={5}>
             <PlatformSelector
-              gameQuery={gameQuery}
-              onSelectedPlatform={setGameQuery}
+              selectedPlatformId={gameQuery.platformId}
+              onSelectedPlatform={(platformId) =>
+                setGameQuery({ ...gameQuery, platformId })
+              }
             />
-            <SortSelector gameQuery={gameQuery} onSelectedSort={setGameQuery} />
+            <SortSelector
+              selectedOrderName={gameQuery.ordering}
+              onSelectedSort={(order) =>
+                setGameQuery({ ...gameQuery, ordering: order })
+              }
+            />
           </HStack>
           <GameGrid gameQuery={gameQuery} />
         </Box>

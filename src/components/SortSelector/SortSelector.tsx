@@ -1,20 +1,19 @@
-import GameQuery from "@/models/game_query";
 import SortMenu from "@/models/sort_menu";
 import { Box, Button } from "@chakra-ui/react";
 import {
   MenuContent,
   MenuItem,
-  MenuRoot,
   MenuItemCommand,
+  MenuRoot,
   MenuTrigger,
 } from "@chakra-ui/react/menu";
 
 interface Props {
-  gameQuery: GameQuery;
-  onSelectedSort: (sortSelection: GameQuery) => void;
+  selectedOrderName?: string;
+  onSelectedSort: (sortSelectionId?: string) => void;
 }
 
-const PlatformSelector = ({ gameQuery, onSelectedSort }: Props) => {
+const PlatformSelector = ({ selectedOrderName, onSelectedSort }: Props) => {
   const menus: SortMenu[] = [
     { id: 1, value: "name", label: "Name" },
     { id: 2, value: "released", label: "Released" },
@@ -32,12 +31,14 @@ const PlatformSelector = ({ gameQuery, onSelectedSort }: Props) => {
     { id: 14, value: "-metacritic", label: "R-Metacritic" },
   ];
 
+  const selectedMenu = menus.find((m) => m.value === selectedOrderName);
+
   return (
     <Box position={"relative"} zIndex={1}>
       <MenuRoot positioning={{ placement: "right" }}>
         <MenuTrigger asChild colorPalette={"purple"}>
           <Button variant="outline" size="xl" fontFamily={"Poppins"}>
-            Order by: {gameQuery.ordering?.label || ""}
+            Order by: {selectedMenu?.label || ""}
           </Button>
         </MenuTrigger>
         <MenuContent
@@ -48,7 +49,7 @@ const PlatformSelector = ({ gameQuery, onSelectedSort }: Props) => {
         >
           <MenuItem
             key={0}
-            onClick={() => onSelectedSort({ ...gameQuery, ordering: null })}
+            onClick={() => onSelectedSort()}
             cursor={"pointer"}
             value={""}
           >
@@ -57,7 +58,7 @@ const PlatformSelector = ({ gameQuery, onSelectedSort }: Props) => {
           {menus.map((menu) => (
             <MenuItem
               key={menu.id}
-              onClick={() => onSelectedSort({ ...gameQuery, ordering: menu })}
+              onClick={() => onSelectedSort(menu.value)}
               cursor={"pointer"}
               value={menu.value}
             >

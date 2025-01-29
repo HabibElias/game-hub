@@ -1,15 +1,14 @@
-import getCroppedImages from "@/services/getCroppedImages";
-import { HStack, List, Text, Image, Badge, Button } from "@chakra-ui/react";
-import GenreSkeleton from "../GenreSkeleton";
-import GameQuery from "@/models/game_query";
 import useGenre from "@/hooks/useGenre";
+import getCroppedImages from "@/services/getCroppedImages";
+import { Badge, Button, HStack, Image, List, Text } from "@chakra-ui/react";
+import GenreSkeleton from "../GenreSkeleton";
 
 interface Props {
-  gameQuery: GameQuery;
-  onSelectedGenre: (genre: GameQuery) => void;
+  selectedGenreId?: number;
+  onSelectedGenre: (genreId?: number) => void;
 }
 
-const GenreList = ({ gameQuery, onSelectedGenre }: Props) => {
+const GenreList = ({ selectedGenreId, onSelectedGenre }: Props) => {
   // the data is a genre type
   const { data, error, isLoading } = useGenre();
   
@@ -26,10 +25,10 @@ const GenreList = ({ gameQuery, onSelectedGenre }: Props) => {
           <List.Item>
             <Button
               variant={"surface"}
-              colorPalette={gameQuery.genre == null ? "purple" : "black"}
+              colorPalette={selectedGenreId == null ? "purple" : "black"}
               _hover={{ textDecoration: "underline" }}
-              textDecoration={gameQuery.genre == null ? "underline" : "none"}
-              onClick={() => onSelectedGenre({ ...gameQuery, genre: null })}
+              textDecoration={selectedGenreId == null ? "underline" : "none"}
+              onClick={() => onSelectedGenre()}
             >
               All
             </Button>
@@ -40,13 +39,13 @@ const GenreList = ({ gameQuery, onSelectedGenre }: Props) => {
                 <Button
                   variant={"surface"}
                   colorPalette={
-                    gameQuery.genre?.id == g.id ? "purple" : "black"
+                    selectedGenreId == g.id ? "purple" : "black"
                   }
                   _hover={{ textDecoration: "underline" }}
                   textDecoration={
-                    gameQuery.genre?.id == g.id ? "underline" : "none"
+                    selectedGenreId == g.id ? "underline" : "none"
                   }
-                  onClick={() => onSelectedGenre({ ...gameQuery, genre: g })}
+                  onClick={() => onSelectedGenre(g.id)}
                 >
                   <HStack>
                     <Image

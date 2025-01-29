@@ -1,5 +1,4 @@
 import usePlatform from "@/hooks/usePlatform";
-import GameQuery from "@/models/game_query";
 import { Box, Button } from "@chakra-ui/react";
 import {
   MenuContent,
@@ -10,12 +9,19 @@ import {
 } from "@chakra-ui/react/menu";
 
 interface Props {
-  gameQuery: GameQuery;
-  onSelectedPlatform: (genre: GameQuery) => void;
+  selectedPlatformId?: number;
+  onSelectedPlatform: (platformId?: number) => void;
 }
 
-const PlatformSelector = ({ gameQuery, onSelectedPlatform }: Props) => {
+const PlatformSelector = ({
+  selectedPlatformId,
+  onSelectedPlatform,
+}: Props) => {
   const { data, error, isLoading } = usePlatform();
+
+  const platformName = data.results?.find(
+    (p) => p.id == selectedPlatformId
+  )?.name;
 
   if (error || isLoading) return null;
   return (
@@ -23,7 +29,7 @@ const PlatformSelector = ({ gameQuery, onSelectedPlatform }: Props) => {
       <MenuRoot positioning={{ placement: "right" }}>
         <MenuTrigger asChild colorPalette={"purple"}>
           <Button variant="outline" size="xl" fontFamily={"Poppins"}>
-            {gameQuery.platform?.name || "Platform"}
+            {platformName || "Platform"}
           </Button>
         </MenuTrigger>
         <MenuContent position={"absolute"} width={"max-content"} marginTop={3}>
@@ -32,8 +38,8 @@ const PlatformSelector = ({ gameQuery, onSelectedPlatform }: Props) => {
             value={""}
             fontFamily={"Poppins"}
             cursor={"pointer"}
-            textDecoration={gameQuery.platform == null ? "underline" : "none"}
-            onClick={() => onSelectedPlatform({ ...gameQuery, platform: null })}
+            textDecoration={selectedPlatformId == null ? "underline" : "none"}
+            onClick={() => onSelectedPlatform(undefined)}
           >
             All
             <MenuItemCommand>0</MenuItemCommand>
@@ -45,9 +51,9 @@ const PlatformSelector = ({ gameQuery, onSelectedPlatform }: Props) => {
               fontFamily={"Poppins"}
               cursor={"pointer"}
               textDecoration={
-                gameQuery.platform?.id == platform.id ? "underline" : "none"
+                selectedPlatformId == platform.id ? "underline" : "none"
               }
-              onClick={() => onSelectedPlatform({ ...gameQuery, platform })}
+              onClick={() => onSelectedPlatform(platform.id)}
             >
               {platform.name}
               <MenuItemCommand>{platform.id}</MenuItemCommand>
