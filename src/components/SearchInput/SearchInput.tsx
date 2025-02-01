@@ -3,15 +3,18 @@ import { InputGroup } from "../ui/input-group";
 import { LuSearch } from "react-icons/lu";
 import { useRef } from "react";
 import useGameQuery from "@/hooks/useGameQuery";
+import { useNavigate } from "react-router-dom";
 
 const SearchInput = () => {
   const ref = useRef<HTMLInputElement>(null);
-  const search  = useGameQuery(s => s.search);
+  const search = useGameQuery((s) => s.search);
+  const navigate = useNavigate();
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
         search(ref.current?.value as string);
+        navigate("/");
       }}
       style={{ width: "100%", display: "flex", justifyContent: "center" }}
     >

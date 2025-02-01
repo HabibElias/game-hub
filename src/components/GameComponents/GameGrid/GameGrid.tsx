@@ -64,6 +64,7 @@ const GameGrid = () => {
         columns={{ sm: 1, md: 2, lg: 2, xl: 3, "2xl": 4 }}
         gridGap={30}
         padding={5}
+        placeItems={{ lg: "start", base: "center" }}
         id="scrollableView"
       >
         {data?.pages.map((page, index) => (

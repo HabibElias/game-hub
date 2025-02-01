@@ -1,5 +1,5 @@
 import GameGrid from "@/components/GameComponents/GameGrid";
-import GameHeading from "@/components/GameHeading";
+import GameHeading from "@/components/GameComponents/GameHeading";
 import GenreList from "@/components/GenreComponents/GenreList";
 import PlatformSelector from "@/components/PlatformSelector";
 import SortSelector from "@/components/SortSelector";
