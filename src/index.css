@@ -1,3 +1,17 @@
-* {
-  font-family: "Poppins", sans-serif;
+
+
+::-webkit-scrollbar {
+  width: 10px; 
+}
+
+::-webkit-scrollbar-track {
+  background: #967db1; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1d1330; 
+} 
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2f0553; 
 }

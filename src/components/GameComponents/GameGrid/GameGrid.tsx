@@ -1,4 +1,4 @@
-import useGame from "@/hooks/useGame";
+import useGames from "@/hooks/useGames";
 import useGameQuery from "@/hooks/useGameQuery";
 import { SimpleGrid, Text } from "@chakra-ui/react";
 import React from "react";
@@ -9,7 +9,7 @@ import GameCardSkeleton from "../GameCardSkeleton";
 
 const GameGrid = () => {
   const { genreId, platformId, ordering, searchText } = useGameQuery();
-  const { data, error, fetchNextPage, hasNextPage, isLoading } = useGame({
+  const { data, error, fetchNextPage, hasNextPage, isLoading } = useGames({
     genreId,
     platformId,
     ordering,
@@ -23,49 +23,33 @@ const GameGrid = () => {
   const fetchGamePageCount =
     data?.pages.reduce((total, page) => total + page.results.length, 0) || 0;
 
+  if (isLoading) {
+    return (
+      <SimpleGrid
+        columns={{ sm: 1, md: 2, lg: 2, xl: 3, "2xl": 4 }}
+        gridGap={20}
+        padding={5}
+        id="scrollableView"
+      >
+        {skeleton.map((e) => (
+          <GameBoxStyle key={e}>
+            <GameCardSkeleton />
+          </GameBoxStyle>
+        ))}
+      </SimpleGrid>
+    );
+  }
+
   return (
-    <>
-      {!isLoading && (
-        <InfiniteScroll
-          dataLength={fetchGamePageCount} //This is important field to render the next data
-          next={() => fetchNextPage()}
-          hasMore={!!hasNextPage}
-          loader={
-            <SimpleGrid
-              columns={{ sm: 1, md: 2, lg: 2, xl: 3, "2xl": 4 }}
-              gridGap={20}
-              marginY={20}
-              id="scrollableView"
-            >
-              {skeleton.map((e) => (
-                <GameBoxStyle key={e}>
-                  <GameCardSkeleton />
-                </GameBoxStyle>
-              ))}
-            </SimpleGrid>
-          }
-        >
-          <SimpleGrid
-            columns={{ sm: 1, md: 2, lg: 2, xl: 3, "2xl": 4 }}
-            gridGap={20}
-            id="scrollableView"
-          >
-            {data?.pages.map((page, index) => (
-              <React.Fragment key={index}>
-                {page.results.map((game) => (
-                  <GameBoxStyle key={game.id}>
-                    <GameCard game={game} />
-                  </GameBoxStyle>
-                ))}
-              </React.Fragment>
-            ))}
-          </SimpleGrid>
-        </InfiniteScroll>
-      )}
-      {isLoading && (
+    <InfiniteScroll
+      dataLength={fetchGamePageCount} //This is important field to render the next data
+      next={() => fetchNextPage()}
+      hasMore={!!hasNextPage}
+      loader={
         <SimpleGrid
           columns={{ sm: 1, md: 2, lg: 2, xl: 3, "2xl": 4 }}
-          gridGap={20}
+          gridGap={30}
+          padding={5}
           id="scrollableView"
         >
           {skeleton.map((e) => (
@@ -74,8 +58,25 @@ const GameGrid = () => {
             </GameBoxStyle>
           ))}
         </SimpleGrid>
-      )}
-    </>
+      }
+    >
+      <SimpleGrid
+        columns={{ sm: 1, md: 2, lg: 2, xl: 3, "2xl": 4 }}
+        gridGap={30}
+        padding={5}
+        id="scrollableView"
+      >
+        {data?.pages.map((page, index) => (
+          <React.Fragment key={index}>
+            {page.results.map((game) => (
+              <GameBoxStyle key={game.id}>
+                <GameCard game={game} />
+              </GameBoxStyle>
+            ))}
+          </React.Fragment>
+        ))}
+      </SimpleGrid>
+    </InfiniteScroll>
   );
 };
 

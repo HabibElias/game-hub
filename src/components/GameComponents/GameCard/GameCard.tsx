@@ -1,10 +1,11 @@
 import Game from "@/models/game_model";
 import PlatformIcons from "../PlatformIcons/PlatformIcons";
 import { Card, HStack, Image } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import CriticScore from "../CriticScore";
 import getCroppedImages from "@/services/getCroppedImages";
 import placeholder from "../../../assets/Image Placeholder/no-image-placeholder-6f3882e0.webp";
-import Emoji from "../Emoji";
+import RatingGame from "../RatingGame";
 
 interface prop {
   game: Game;
@@ -12,7 +13,13 @@ interface prop {
 
 const GameCard = ({ game }: prop) => {
   return (
-    <Card.Root>
+    <Card.Root
+      _hover={{
+        transform: "scale(1.02)",
+        zIndex: 1,
+      }}
+      transition={"transform 0.15s ease-in"}
+    >
       <Image
         src={
           game.background_image
@@ -20,8 +27,8 @@ const GameCard = ({ game }: prop) => {
             : placeholder
         }
         width={"100%"}
-        borderTopLeftRadius={10}
-        borderTopRightRadius={10}
+        borderTopLeftRadius={5}
+        borderTopRightRadius={5}
       />
       <Card.Body>
         <HStack justifyContent={"space-between"}>
@@ -30,10 +37,17 @@ const GameCard = ({ game }: prop) => {
           />
           <CriticScore score={game.metacritic} fontSize={16} />
         </HStack>
-        <Card.Title fontFamily="Poppins" fontWeight={"bold"} marginBottom={2}>
-          {game.name}
-        </Card.Title>
-        <Emoji rating={game.rating_top} />
+        <Link to={`/games/${game.slug}`}>
+          <Card.Title
+            _hover={{ textDecoration: "underline" }}
+            fontFamily="Poppins"
+            fontWeight={"bold"}
+            marginBottom={2}
+          >
+            {game.name}
+          </Card.Title>
+        </Link>
+        <RatingGame rating={game.rating_top} />
       </Card.Body>
     </Card.Root>
   );
