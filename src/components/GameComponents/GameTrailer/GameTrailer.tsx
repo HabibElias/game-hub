@@ -1,4 +1,4 @@
-import useTrailer from "@/pages/useTrailer";
+import useTrailer from "@/hooks/useTrailer";
 
 const GameTrailer = ({ gameId }: { gameId: number | string }) => {
   const { data, error, isLoading } = useTrailer(gameId);
